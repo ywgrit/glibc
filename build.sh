@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 mkdir -p build && cd build
 rm -rf ./*
 ../configure  --enable-debug --prefix=$HOME/glibc
