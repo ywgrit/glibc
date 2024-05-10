@@ -1,5 +1,5 @@
 #!/bin/sh
-mkdir -p build
+mkdir -p build && cd build
 rm -rf ./*
-../configure  --enable-debug --prefix=/home/wx/glibc
+../configure  --enable-debug --prefix=$HOME/glibc
 make -j$(proc)
