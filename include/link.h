@@ -131,7 +131,7 @@ struct link_map
        are indexed by DT_ADDRTAGIDX(tagvalue), see <elf.h>.  */
 
     ElfW(Dyn) *l_info[DT_NUM + DT_THISPROCNUM + DT_VERSIONTAGNUM
-		      + DT_EXTRANUM + DT_VALNUM + DT_ADDRNUM];
+		      + DT_EXTRANUM + DT_VALNUM + DT_ADDRNUM]; /* Dynamic section entry */
     const ElfW(Phdr) *l_phdr;	/* Pointer to program header table in core.  */
     ElfW(Addr) l_entry;		/* Entry point location.  */
     ElfW(Half) l_phnum;		/* Number of program header entries.  */

@@ -540,7 +540,7 @@ _dl_start (void *arg)
 #endif
 
   /* Figure out the run-time load address of the dynamic linker itself.  */
-  bootstrap_map.l_addr = elf_machine_load_address ();
+  bootstrap_map.l_addr = elf_machine_load_address (); // __ehdr_start: point to ELF header
 
   /* Read our own dynamic section and fill in the info array.  */
   bootstrap_map.l_ld = (void *) bootstrap_map.l_addr + elf_machine_dynamic ();
