@@ -44,3 +44,7 @@ core
 /linuxthreads_db
 /rtkaio
 *.pyc
+
+# compile staff
+build.sh
+compile_commands.json
