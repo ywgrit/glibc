@@ -542,10 +542,10 @@ _dl_start (void *arg)
   /* Figure out the run-time load address of the dynamic linker itself.  */
   bootstrap_map.l_addr = elf_machine_load_address (); // __ehdr_start: point to ELF header
 
-  /* Read our own dynamic section and fill in the info array.  */
-  bootstrap_map.l_ld = (void *) bootstrap_map.l_addr + elf_machine_dynamic ();
+  /* Read our own dynamic section(dynamic linker, i.e, ld.so is also a shared object) and fill in the info array.  */
+  bootstrap_map.l_ld = (void *) bootstrap_map.l_addr + elf_machine_dynamic (); // elf_machine_dynamic is the static address of dynamic section
   bootstrap_map.l_ld_readonly = DL_RO_DYN_SECTION;
-  elf_get_dynamic_info (&bootstrap_map, true, false);
+  elf_get_dynamic_info (&bootstrap_map, true, false); // get all entries of dynamic section of dynamic linker, theses entries will be used later
 
 #if NO_TLS_OFFSET != 0
   bootstrap_map.l_tls_offset = NO_TLS_OFFSET;
@@ -557,8 +557,8 @@ _dl_start (void *arg)
 
   if (bootstrap_map.l_addr)
     {
-      /* Relocate ourselves so we can do normal function calls and
-	 data access using the global offset table.  */
+      /* Relocate ourselves(dynamic linker) so we can do normal function calls and
+	 data access using the global offset table. Dynamic linker, i.e., ld.so needs to relocate itself, just relocates dynamic section  */
 
       ELF_DYNAMIC_RELOCATE (&bootstrap_map, NULL, 0, 0, 0);
     }
@@ -1372,7 +1372,7 @@ dl_main (const ElfW(Phdr) *phdr,
 #endif
 
   const char *ld_so_name = _dl_argv[0];
-  if (*user_entry == (ElfW(Addr)) ENTRY_POINT)
+  if (*user_entry == (ElfW(Addr)) ENTRY_POINT) // program's entry point is the address of _start function of ld.so
     {
       /* Ho ho.  We are not the program interpreter!  We are the program
 	 itself!  This means someone ran ld.so as a command.  Well, that

@@ -245,7 +245,7 @@ elf_machine_plt_value (struct link_map *map, const ElfW(Rela) *reloc,
    MAP is the object containing the reloc.  */
 
 static inline void __attribute__((always_inline))
-elf_machine_rela(struct link_map *map, struct r_scope_elem *scope[],
+elf_machine_rela (struct link_map *map, struct r_scope_elem *scope[],
 		 const ElfW(Rela) *reloc, const ElfW(Sym) *sym,
 		 const struct r_found_version *version,
 		 void *const reloc_addr_arg, int skip_ifunc) {
@@ -356,8 +356,8 @@ and creates an unsatisfiable circular dependency.\n",
 	case R_X86_64_TLSDESC:
 	  {
 	    struct tlsdesc volatile *td =
-	      (struct tlsdesc volatile *)reloc_addr;
-
+	      (struct tlsdesc volatile *)reloc_addr; // The first got entry
+        // td->arg == reloc->r_addend
 	    if (! sym)
 	      {
 		td->arg = (void*)reloc->r_addend;
@@ -392,7 +392,7 @@ and creates an unsatisfiable circular dependency.\n",
 	      /* We know the offset of the object the symbol is contained in.
 		 It is a negative value which will be added to the
 		 thread pointer.  */
-	      value = (sym->st_value + reloc->r_addend
+	      value = (sym->st_value + reloc->r_addend // For executables and DSOs the st_value field contains the offset of the variable in the TLS initialization image.
 		       - sym_map->l_tls_offset);
 # ifdef __ILP32__
 	      /* The symbol and addend values are 32 bits but the GOT

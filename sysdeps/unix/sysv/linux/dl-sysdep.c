@@ -78,9 +78,9 @@ _dl_sysdep_parse_arguments (void **start_argptr,
 {
   _dl_argc = (intptr_t) *start_argptr;
   _dl_argv = (char **) (start_argptr + 1); /* Necessary aliasing violation.  */
-  _environ = _dl_argv + _dl_argc + 1;
+  _environ = _dl_argv + _dl_argc + 1; // Now _environ is the first environment variable.
   for (char **tmp = _environ; ; ++tmp)
-    if (*tmp == NULL)
+    if (*tmp == NULL) // Auxilary vector is passed after the environment variables, reference: https://www.gnu.org/software/libc/manual/html_node/Auxiliary-Vector.html and https://lwn.net/Articles/519085/.
       {
 	/* Another necessary aliasing violation.  */
 	GLRO(dl_auxv) = (ElfW(auxv_t) *) (tmp + 1);
@@ -103,7 +103,7 @@ _dl_sysdep_start (void **start_argptr,
   __libc_stack_end = DL_STACK_END (start_argptr);
 
   struct dl_main_arguments dl_main_args;
-  _dl_sysdep_parse_arguments (start_argptr, &dl_main_args);
+  _dl_sysdep_parse_arguments (start_argptr, &dl_main_args); // get dl_main_args.user_entry by parsing start_argptr
 
   dl_hwcap_check ();
 
@@ -137,8 +137,8 @@ _dl_sysdep_start (void **start_argptr,
   if (__builtin_expect (__libc_enable_secure, 0))
     __libc_check_standard_fds ();
 
-  (*dl_main) (dl_main_args.phdr, dl_main_args.phnum,
-              &dl_main_args.user_entry, GLRO(dl_auxv));
+  (*dl_main) (dl_main_args.phdr, dl_main_args.phnum, // program header and it's size
+              &dl_main_args.user_entry, GLRO(dl_auxv)); // user_entry is the entry point of the program, dl_auxv is Auxilary vector
   return dl_main_args.user_entry;
 }
 

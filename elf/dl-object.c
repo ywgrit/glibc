@@ -34,7 +34,7 @@ _dl_add_to_namespace_list (struct link_map *new, Lmid_t nsid)
 
   if (GL(dl_ns)[nsid]._ns_loaded != NULL)
     {
-      struct link_map *l = GL(dl_ns)[nsid]._ns_loaded;
+      struct link_map *l = GL(dl_ns)[nsid]._ns_loaded; // add to _dl_main_map
       while (l->l_next != NULL)
 	l = l->l_next;
       new->l_prev = l;

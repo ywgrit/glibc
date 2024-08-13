@@ -208,7 +208,7 @@ elf_machine_rela (struct link_map *map, struct r_scope_elem *scope[],
 
     case __WORDSIZE == 64 ? R_RISCV_TLS_DTPREL64 : R_RISCV_TLS_DTPREL32:
       if (sym != NULL)
-	*addr_field = TLS_DTPREL_VALUE (sym) + reloc->r_addend;
+	*addr_field = TLS_DTPREL_VALUE (sym) + reloc->r_addend; // For executables and DSOs the st_value field contains the offset of the variable in the TLS initialization image.
       break;
 
     case __WORDSIZE == 64 ? R_RISCV_TLS_TPREL64 : R_RISCV_TLS_TPREL32:

@@ -329,7 +329,7 @@ struct link_map
 #  error "FORCED_DYNAMIC_TLS_OFFSET is not defined"
 # endif
 #endif
-    /* For objects present at startup time: offset in the static TLS block.  */
+    /* For objects present at startup time: offset in the static TLS block. i.e., the offset from the start of this tls block to the tp register */
     ptrdiff_t l_tls_offset;
     /* Index of the module in the dtv array.  */
     size_t l_tls_modid;

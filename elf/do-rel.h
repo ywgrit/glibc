@@ -42,7 +42,7 @@
 static inline void __attribute__ ((always_inline))
 elf_dynamic_do_Rel (struct link_map *map, struct r_scope_elem *scope[],
 		    ElfW(Addr) reladdr, ElfW(Addr) relsize,
-		    __typeof (((ElfW(Dyn) *) 0)->d_un.d_val) nrelative,
+		    __typeof (((ElfW(Dyn) *) 0)->d_un.d_val) nrelative, // nrelative is the number of relocate entries which type are R_X86_64_RELATIVE
 		    int lazy, int skip_ifunc)
 {
   const ElfW(Rel) *relative = (const void *) reladdr;

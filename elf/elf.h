@@ -3591,7 +3591,7 @@ enum
 #define R_X86_64_COPY		5	/* Copy symbol at runtime */
 #define R_X86_64_GLOB_DAT	6	/* Create GOT entry */
 #define R_X86_64_JUMP_SLOT	7	/* Create PLT entry */
-#define R_X86_64_RELATIVE	8	/* Adjust by program base */
+#define R_X86_64_RELATIVE	8	/* Adjust by program base, to be spcific, reloc->r_addend + link_map->l_addr is the actual address of this relocation entry */
 #define R_X86_64_GOTPCREL	9	/* 32 bit signed PC relative
 					   offset to GOT */
 #define R_X86_64_32		10	/* Direct 32 bit zero extended */

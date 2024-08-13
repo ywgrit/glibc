@@ -81,7 +81,7 @@ elf_get_dynamic_info (struct link_map *l, bool bootstrap,
 	}								      \
       while (0)
 
-      ADJUST_DYN_INFO (DT_HASH);
+      ADJUST_DYN_INFO (DT_HASH); // amend address using link_map->l_addr
       ADJUST_DYN_INFO (DT_PLTGOT);
       ADJUST_DYN_INFO (DT_STRTAB);
       ADJUST_DYN_INFO (DT_SYMTAB);

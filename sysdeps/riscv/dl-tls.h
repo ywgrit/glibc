@@ -28,12 +28,12 @@ typedef struct
 #define TLS_TP_OFFSET		0
 
 /* Dynamic thread vector pointers point 0x800 past the start of each
-   TLS block.  */
+   TLS block. NOTE: not points to the start of TLS block. */
 #define TLS_DTV_OFFSET		0x800
 
 /* Compute the value for a GOTTPREL reloc.  */
 #define TLS_TPREL_VALUE(sym_map, sym) \
-  ((sym_map)->l_tls_offset + (sym)->st_value - TLS_TP_OFFSET)
+  ((sym_map)->l_tls_offset + (sym)->st_value - TLS_TP_OFFSET) // For executables and DSOs the st_value field contains the offset of the variable in the TLS initialization image.
 
 /* Compute the value for a DTPREL reloc.  */
 #define TLS_DTPREL_VALUE(sym) \

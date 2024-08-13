@@ -51,7 +51,7 @@
 	.align 16
 _dl_tlsdesc_return:
 	_CET_ENDBR
-	movq	8(%rax), %rax
+	movq	8(%rax), %rax # 0(%rax) points to the first entry, 8(%rax) points to the next entry which contains the TP offset
 	ret
 	cfi_endproc
 	.size	_dl_tlsdesc_return, .-_dl_tlsdesc_return
